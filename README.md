@@ -17,21 +17,22 @@ node `v22.5.1`
 git clone https://github.com/nielse63/alpaca-firebase.git
 cd alpaca-firebase
 nvm use
-npm run ci
+npm ci
 ```
 
 ## Usage
 
-```bash
-npm run build
-npm start
-```
+| Command          | Description                        |
+| ---------------- | ---------------------------------- |
+| `npm run serve`  | Run the firebase functions locally |
+| `npm run deploy` | Deploy functions to production     |
 
 ### Development
 
-```bash
-npm run dev
-```
+| Command         | Description                     |
+| --------------- | ------------------------------- |
+| `npm run lint`  | Lint and format source files    |
+| `npm run build` | Generate type declaration files |
 
 ### Testing
 
@@ -40,15 +41,6 @@ npm test
 
 # with coverage
 npm test -- --coverage
-```
-
-### Running in production
-
-To execute in a production environment:
-
-```bash
-#!/usr/bin/env bash
-/path/to/alpaca-firebase/.bin/run
 ```
 
 ### Creating a new release

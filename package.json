@@ -2,13 +2,11 @@
   "name": "alpaca-firebase",
   "version": "1.0.0",
   "description": "Algotrading bot example using TypeScript",
-  "main": "functions/index.js",
+  "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "ci": ".bin/ci",
-    "test:old": "dotenvx run --env-file=.env.test -- jest",
     "test": "jest --passWithNoTests",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
@@ -31,17 +29,29 @@
     "node": ">=22.5.1"
   },
   "workspaces": [
-    "./functions",
-    "./packages/*"
+    "./packages/alpaca",
+    "./packages/helpers",
+    "./packages/account",
+    "./packages/positions",
+    "./packages/quote",
+    "./packages/orders",
+    "./functions"
   ],
   "dependencies": {
+    "@alpaca-firebase/account": "^1.0.0",
+    "@alpaca-firebase/alpaca": "^1.0.0",
+    "@alpaca-firebase/helpers": "^1.0.0",
+    "@alpaca-firebase/orders": "^1.0.0",
+    "@alpaca-firebase/positions": "^1.0.0",
+    "@alpaca-firebase/quote": "^1.0.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.4"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.6.4",
     "@nielse63/copy-env": "^1.1.0",
+    "@release-it/bumper": "^6.0.1",
     "babel-jest": "^29.7.0",
+    "dependency-tree": "^11.0.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -55,7 +65,9 @@
     "jest": "^29.7.0",
     "jest-extended": "^4.0.2",
     "lint-staged": "^15.2.7",
+    "madge": "^7.0.0",
     "prettier": "^3.3.3",
+    "release-it": "^17.6.0",
     "typescript": "^5.5.4"
   },
   "lint-staged": {
@@ -64,6 +76,6 @@
       "eslint --fix --cache",
       "prettier --write --cache"
     ],
-    "packages/**/*.{json,js}": ".bin/package-doctor"
+    "./packages/**/*.{json,js}": ".bin/package-doctor"
   }
 }
