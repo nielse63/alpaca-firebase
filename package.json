@@ -63,6 +63,7 @@
     "*.js": [
       "eslint --fix --cache",
       "prettier --write --cache"
-    ]
+    ],
+    "packages/**/*.{json,js}": ".bin/package-doctor"
   }
 }
