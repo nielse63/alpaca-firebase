@@ -79,4 +79,4 @@ gh release create "$new_version" \
   --notes-start-tag "$prev_version"
 
 # deploy function
-npm run deploy
+npm run deploy -- -m "Release: $new_version"
