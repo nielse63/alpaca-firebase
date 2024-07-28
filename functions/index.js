@@ -14,7 +14,7 @@ exports.orders = onRequest(async (req, res) => {
   logger.info('orders request body:', JSON.stringify(req.body));
   const { body } = req;
   if (body.test) {
-    process.env.NODE_ENV = 'development';
+    process.env.NODE_ENV = 'test';
   }
   const { symbol, side, price = null } = body;
   if (!symbol) {

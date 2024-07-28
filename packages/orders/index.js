@@ -20,9 +20,7 @@ const closeOrdersForSymbol = async (symbol) => {
   const orderIds = orders.map((order) => order.id);
   const promises = orderIds.map((id) => alpaca.cancelOrder(id));
   try {
-    if (process.env.NODE_ENV !== 'development') {
-      await Promise.all(promises);
-    }
+    await Promise.all(promises);
     return orderIds;
   } catch (error) {
     console.error(error);
@@ -48,11 +46,9 @@ const createBuyOrder = async (symbol, config = {}) => {
     position_intent: 'buy_to_open',
     ...config,
   };
-  if (process.env.NODE_ENV !== 'development') {
-    const order = await alpaca.createOrder(options);
-    return order;
-  }
-  return options;
+  // return options;
+  const order = await alpaca.createOrder(options);
+  return order;
 };
 
 const createSellOrder = async (symbol, config = {}) => {
@@ -73,11 +69,9 @@ const createSellOrder = async (symbol, config = {}) => {
     qty,
     ...config,
   };
-  if (process.env.NODE_ENV !== 'development') {
-    const order = await alpaca.createOrder(options);
-    return order;
-  }
-  return options;
+  // return options;
+  const order = await alpaca.createOrder(options);
+  return order;
 };
 
 const createOrder = async (symbol, side, config = {}) => {

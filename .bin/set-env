@@ -1,8 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -e
 
-npx lint-staged
-npx copy-env --git-add
-cp .env packages/alpaca/.env
 rm functions/.env
 cp .env functions/.env
 echo "NODE_ENV=production" >> functions/.env

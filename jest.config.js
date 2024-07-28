@@ -22,24 +22,19 @@ module.exports = {
   // collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['src/**/*.js'],
+  collectCoverageFrom: [
+    '<rootDir>/packages/**/*.js',
+    '<rootDir>/functions/**/*.js',
+  ],
 
   // The directory where Jest should output its coverage files
   // coverageDirectory: undefined,
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    '/dist/',
-    '/__fixtures__/',
-    '/__tests__/',
-    '<rootDir>/src/types.d.ts',
-    '<rootDir>/src/alpaca-trading-script.js',
-    '<rootDir>/src/index.js',
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/', '/dist/', '/__tests__/'],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'babel',
+  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ['text-summary', ...coverageReporters],

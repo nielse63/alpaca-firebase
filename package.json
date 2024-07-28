@@ -10,9 +10,11 @@
     "test": "jest --passWithNoTests",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
+    "preserve": ".bin/set-env",
     "serve": "firebase serve",
+    "predeploy": ".bin/set-env",
     "deploy": "firebase deploy",
-    "build": "tsc --allowJs --emitDeclarationOnly"
+    "build": ".bin/build"
   },
   "repository": {
     "type": "git",
