@@ -1,3 +1,11 @@
+const plugins = ['import'];
+const extendsArray = [
+  'eslint:recommended',
+  'airbnb-base',
+  'plugin:monorepo/recommended',
+  'prettier',
+];
+
 module.exports = {
   root: true,
   env: {
@@ -8,8 +16,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2024,
   },
-  plugins: ['import'],
-  extends: ['eslint:recommended', 'airbnb-base', 'prettier'],
+  plugins,
+  extends: extendsArray,
   rules: {
     'no-console': ['error', { allow: ['warn', 'error'] }],
   },
@@ -22,6 +30,12 @@ module.exports = {
         '**/__tests__/**',
         '**/__fixtures__/**',
         'config/**',
+      ],
+      plugins: [...plugins, 'jest', 'jest-extended'],
+      extends: [
+        ...extendsArray,
+        'plugin:jest/recommended',
+        'plugin:jest-extended/all',
       ],
       rules: {
         'import/no-extraneous-dependencies': 'off',

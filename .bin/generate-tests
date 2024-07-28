@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+const path = require('path');
+const fs = require('fs-extra');
+const fg = require('fast-glob');
+
+const root = path.resolve(__dirname, '..');
+
+const getPackageJsFiles = async () => {
+  const files = await fg(['packages/**/*.js', '!__tests__']);
+  const fileObjects = files
+    .map((file) => {
+      const testFile = path.resolve(
+        path.dirname(file),
+        '__tests__',
+        `${path.basename(file).replace(/\.js$/, '')}.spec.js`
+      );
+      return {
+        src: path.resolve(root, file),
+        test: testFile,
+      };
+    })
+    .filter(({ test }) => !fs.existsSync(test));
+  const promises = fileObjects.map(({ test }) => fs.ensureFile(test));
+  await Promise.all(promises);
+  console.log(fileObjects);
+};
+
+getPackageJsFiles().catch(console.error);

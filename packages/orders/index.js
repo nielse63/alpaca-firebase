@@ -38,7 +38,7 @@ const createBuyOrder = async (symbol, config = {}) => {
   const qty = toDecimal(buyingPower / price, 4);
   const options = {
     side: 'buy',
-    symbol,
+    symbol: formatSymbol(symbol),
     // type: 'market',
     // notional: buyingPower,
     type: 'limit',
@@ -68,7 +68,7 @@ const createSellOrder = async (symbol, config = {}) => {
     type: 'limit',
     limit_price: price,
     time_in_force: 'gtc',
-    symbol,
+    symbol: formatSymbol(symbol),
     position_intent: 'sell_to_close',
     qty,
     ...config,
