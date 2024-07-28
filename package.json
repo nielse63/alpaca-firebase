@@ -1,6 +1,6 @@
 {
-  "name": "alpaca-trading-scripts",
-  "version": "2.0.0",
+  "name": "alpaca-firebase",
+  "version": "1.0.0",
   "description": "Algotrading bot example using TypeScript",
   "main": "functions/index.js",
   "publishConfig": {
@@ -12,25 +12,28 @@
     "test": "jest --passWithNoTests",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
-    "preserve": "cp .env functions/.env",
     "serve": "firebase serve",
-    "predeploy": "cp .env functions/.env",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "build": "tsc --allowJs --emitDeclarationOnly"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nielse63/alpaca-trading-scripts.git"
+    "url": "git+https://github.com/nielse63/alpaca-firebase.git"
   },
   "keywords": [],
   "author": "Erik Nielsen <erik@312development.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nielse63/alpaca-trading-scripts/issues"
+    "url": "https://github.com/nielse63/alpaca-firebase/issues"
   },
-  "homepage": "https://github.com/nielse63/alpaca-trading-scripts#readme",
+  "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "engines": {
     "node": ">=22.5.1"
   },
+  "workspaces": [
+    "./functions",
+    "./packages/*"
+  ],
   "dependencies": {
     "dotenv": "^16.4.5",
     "firebase": "^10.12.4"
@@ -48,11 +51,12 @@
     "jest": "^29.7.0",
     "jest-extended": "^4.0.2",
     "lint-staged": "^15.2.7",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
   },
   "lint-staged": {
-    "*.{json,md}": "prettier --write --cache",
-    "*.{ts,js}": [
+    "*.{json,md,yml}": "prettier --write --cache",
+    "*.js": [
       "eslint --fix --cache",
       "prettier --write --cache"
     ]

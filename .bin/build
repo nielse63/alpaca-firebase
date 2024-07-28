@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+# remove existing type declarations
+type_files=$(find . -name "*.d.ts" -type f -maxdepth 3 -not -path "./node_modules/*")
+for file in $type_files; do
+  echo "Removing $file"
+  rm "$file"
+done
+
+# build type declarations
+npx tsc --allowJs --emitDeclarationOnly

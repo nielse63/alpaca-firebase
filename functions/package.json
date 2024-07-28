@@ -9,10 +9,16 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": ">=22"
+    "node": "22"
   },
   "main": "index.js",
   "dependencies": {
+    "@alpaca-firebase/account": "^1.0.0",
+    "@alpaca-firebase/alpaca": "^1.0.0",
+    "@alpaca-firebase/helpers": "^1.0.0",
+    "@alpaca-firebase/orders": "^1.0.0",
+    "@alpaca-firebase/positions": "^1.0.0",
+    "@alpaca-firebase/quote": "^1.0.0",
     "@alpacahq/alpaca-trade-api": "^3.1.1",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",

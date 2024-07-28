@@ -1,0 +1,27 @@
+{
+  "name": "@alpaca-firebase/orders",
+  "version": "1.0.0",
+  "description": "Order functions for alpaca-firebase",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nielse63/alpaca-firebase.git"
+  },
+  "author": "Erik Nielsen <erik@312development.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nielse63/alpaca-firebase/issues"
+  },
+  "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
+  "dependencies": {
+    "@alpaca-firebase/account": "^1.0.0",
+    "@alpaca-firebase/alpaca": "^1.0.0",
+    "@alpaca-firebase/helpers": "^1.0.0",
+    "@alpaca-firebase/positions": "^1.0.0",
+    "@alpaca-firebase/quote": "^1.0.0"
+  }
+}

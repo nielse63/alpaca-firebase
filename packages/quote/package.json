@@ -1,0 +1,24 @@
+{
+  "name": "@alpaca-firebase/quote",
+  "version": "1.0.0",
+  "description": "Quote functions for alpaca-firebase",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nielse63/alpaca-firebase.git"
+  },
+  "author": "Erik Nielsen <erik@312development.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nielse63/alpaca-firebase/issues"
+  },
+  "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
+  "dependencies": {
+    "@alpaca-firebase/helpers": "^1.0.0",
+    "axios": "^1.7.2"
+  }
+}

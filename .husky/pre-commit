@@ -2,3 +2,6 @@
 
 npx lint-staged
 npx copy-env --git-add
+cp .env packages/alpaca/.env
+cp .env functions/.env
+echo "NODE_ENV=development" >> functions/.env
