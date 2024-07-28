@@ -1,6 +1,6 @@
 {
   "name": "alpaca-firebase",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Algotrading bot example using TypeScript",
   "main": "./index.js",
   "publishConfig": {
@@ -35,12 +35,12 @@
     "./packages/*"
   ],
   "dependencies": {
-    "@alpaca-firebase/account": "^1.0.1",
-    "@alpaca-firebase/alpaca": "^1.0.1",
-    "@alpaca-firebase/helpers": "^1.0.1",
-    "@alpaca-firebase/orders": "^1.0.1",
-    "@alpaca-firebase/positions": "^1.0.1",
-    "@alpaca-firebase/quote": "^1.0.1",
+    "@alpaca-firebase/account": "^1.0.2",
+    "@alpaca-firebase/alpaca": "^1.0.2",
+    "@alpaca-firebase/helpers": "^1.0.2",
+    "@alpaca-firebase/orders": "^1.0.2",
+    "@alpaca-firebase/positions": "^1.0.2",
+    "@alpaca-firebase/quote": "^1.0.2",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.4"
   },
