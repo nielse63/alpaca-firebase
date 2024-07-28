@@ -51,12 +51,12 @@ const deps = async () => {
       'npx',
       [
         'release-it',
-        'patch',
+        '--increment=patch',
         '--no-git',
         '--npm.publish=true',
         '--github.release=false',
         '--npm.publishArgs=--access=public',
-        '--dry-run',
+        '--ci',
       ],
       {
         cwd: path.resolve(root, pkg.dir),

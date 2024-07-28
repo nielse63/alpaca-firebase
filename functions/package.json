@@ -14,14 +14,14 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "dependencies": {
-    "@alpaca-firebase/account": "^1.0.0",
-    "@alpaca-firebase/orders": "^1.0.0",
+    "@alpaca-firebase/account": "^1.0.1",
+    "@alpaca-firebase/orders": "^1.0.1",
     "dotenv": "^16.4.5",
-    "firebase-admin": "^12.1.0",
-    "firebase-functions": "^5.0.0"
+    "firebase-admin": "^12.3.0",
+    "firebase-functions": "^5.0.1"
   },
   "devDependencies": {
-    "firebase-functions-test": "^3.1.0"
+    "firebase-functions-test": "^3.3.0"
   },
   "private": true
 }
