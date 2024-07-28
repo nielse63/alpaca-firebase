@@ -7,6 +7,7 @@
     "access": "public"
   },
   "scripts": {
+    "ci": ".bin/ci",
     "test": "jest --passWithNoTests",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
