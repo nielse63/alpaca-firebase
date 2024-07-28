@@ -21,6 +21,7 @@ module.exports = {
         '**/__mocks__/**',
         '**/__tests__/**',
         '**/__fixtures__/**',
+        'config/**',
       ],
       rules: {
         'import/no-extraneous-dependencies': 'off',

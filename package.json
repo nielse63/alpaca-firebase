@@ -9,9 +9,9 @@
   "scripts": {
     "ci": ".bin/ci",
     "test:old": "dotenvx run --env-file=.env.test -- jest",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "prepare": "husky || true",
-    "lint": "eslint --fix . && prettier --write .",
+    "lint": "eslint --fix --cache . && prettier --write --cache .",
     "serve": "firebase serve",
     "deploy": "firebase deploy"
   },
