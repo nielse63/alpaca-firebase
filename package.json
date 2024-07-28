@@ -1,6 +1,6 @@
 {
   "name": "alpaca-firebase",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Algotrading bot example using TypeScript",
   "main": "./index.js",
   "publishConfig": {
