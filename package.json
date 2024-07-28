@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-trading-scripts#readme",
   "engines": {
-    "node": ">=22.2.0"
+    "node": ">=22.5.1"
   },
   "dependencies": {
     "firebase": "^10.12.4"
