@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+function trash {
+    local src=$1
+
+    # guards
+    if ! [ -e "$src" ]; then
+        return
+    fi
+
+    # move to trash if possible
+    if [ -e "$HOME/.Trash" ]; then
+      src_basename=$(basename "$src")
+      now=$(date +%s)
+      trash_file="$HOME/.Trash/${src_basename}_${now}_${RANDOM}"
+      mv "$src" "$trash_file"
+      rm -rf "$trash_file" &
+    else
+      rm -rf "$src"
+    fi
+}

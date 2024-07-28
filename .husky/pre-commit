@@ -1,4 +1,4 @@
 #!/bin/sh
 
 npx lint-staged
-.bin/copy-env
+npx copy-env --git-add

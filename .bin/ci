@@ -1,23 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-function trash {
-    local src=$1
-
-    # guards
-    if ! [ -e "$src" ]; then
-        return
-    fi
-
-    # move to trash if possible
-    if [ -e "$HOME/.Trash" ]; then
-      src_basename=$(basename "$src")
-      now=$(date +%s)
-      mv "$src" "$HOME/.Trash/${src_basename}_${now}_${RANDOM}"
-    else
-      rm -rf "$src" &
-    fi
-}
+source "$(dirname "$0")/_helpers"
 
 node_modules=$(find . -name 'node_modules' -type d -maxdepth 2)
 for dir in $node_modules; do

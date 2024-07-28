@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -e
+
+source "$(dirname "$0")/_helpers"
+
+remove_package_lock_files=
+if [ "$1" == "--nuclear" ]; then
+  remove_package_lock_files=true
+fi
+
+function remove_dirs {
+  local dirs=$1
+  for dir in $dirs; do
+    echo "Removing $dir"
+    # trash "$dir"
+  done
+}
+
+remove_dirs "$(find . -name 'node_modules' -type d -maxdepth 2)"
+remove_dirs "$(find . -name ".*cache" -type f -maxdepth 2)"
+remove_dirs "$(find . -name "dist" -type d -maxdepth 2)"
+remove_dirs "$(find . -name "coverage" -type d -maxdepth 2)"
+
+if [ "$remove_package_lock_files" ]; then
+  remove_dirs "$(find . -name 'package-lock.json' -type f -maxdepth 2)"
+fi
