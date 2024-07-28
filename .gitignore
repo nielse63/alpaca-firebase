@@ -131,6 +131,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# other
 .env
 .env.test
 tmp/*
@@ -140,6 +141,7 @@ data/*
 backtest.json
 .bin/rsync
 *.*cache
+*.zip
 
 # Firebase cache
 .firebase/

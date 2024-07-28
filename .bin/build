@@ -1,12 +1,84 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env node
+const fs = require('fs-extra');
+const path = require('path');
+const fg = require('fast-glob');
+const { spawnSync } = require('child_process');
 
-# remove existing type declarations
-type_files=$(find . -name "*.d.ts" -type f -maxdepth 3 -not -path "./node_modules/*")
-for file in $type_files; do
-  echo "Removing $file"
-  rm "$file"
-done
+// remove existing type declarations
+const removeTypeDeclaration = async () => {
+  const typeFiles = await fg(
+    ['packages/**/*.d.ts', 'functions/**/*.d.ts', '**/types/**'],
+    {
+      ignore: ['node_modules/**'],
+      onlyFiles: false,
+      onlyDirectories: false,
+    }
+  );
 
-# build type declarations
-npx tsc --allowJs --emitDeclarationOnly
+  for (const file of typeFiles) {
+    console.log(`Removing ${file}`);
+    await fs.remove(file);
+  }
+};
+
+const runBuildCommand = () => {
+  const result = spawnSync(
+    'npx',
+    ['tsc', '--allowJs', '--emitDeclarationOnly'],
+    {
+      stdio: 'inherit',
+    }
+  );
+
+  if (result.error) {
+    console.error(result.error);
+    process.exit(1);
+  }
+
+  if (result.status !== 0) {
+    console.error('Build failed');
+    process.exit(1);
+  }
+};
+
+const moveTypeFiles = async () => {
+  const typeFiles = await fg(['types/**/*.d.ts']);
+  const promises = typeFiles.map(async (file) => {
+    const basename = path.basename(file);
+    const dest = file
+      .replace('types/', '')
+      .replace(basename, `types/${basename}`);
+    console.log(`Moving ${file} to ${dest}`);
+    await fs.ensureDir(path.dirname(dest));
+    await fs.move(file, dest);
+  });
+  await Promise.all(promises);
+};
+
+const updatePackageJsonFiles = async () => {
+  const pkgFiles = await fg([
+    './functions/**/package.json',
+    './packages/**/package.json',
+  ]);
+  console.log({ pkgFiles });
+  const promises = pkgFiles.map(async (file) => {
+    const pkg = await fs.readJson(file);
+    pkg.types = './types/*.d.ts';
+    await fs.writeJson(file, pkg, { spaces: 2 });
+  });
+  await Promise.all(promises);
+};
+
+const cleanup = async () => {
+  await fs.remove('types');
+};
+
+const build = async () => {
+  await removeTypeDeclaration();
+  runBuildCommand();
+  await moveTypeFiles();
+  await updatePackageJsonFiles();
+  await cleanup();
+};
+
+build().catch(console.error);

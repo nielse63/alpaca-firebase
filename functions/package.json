@@ -12,6 +12,7 @@
     "node": "22"
   },
   "main": "index.js",
+  "types": "./types/*.d.ts",
   "dependencies": {
     "@alpaca-firebase/account": "^1.0.0",
     "@alpaca-firebase/alpaca": "^1.0.0",

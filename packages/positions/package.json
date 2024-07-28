@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Position functions for alpaca-firebase",
   "main": "index.js",
-  "types": "index.d.ts",
+  "types": "./types/*.d.ts",
   "scripts": {
     "test": "jest"
   },
