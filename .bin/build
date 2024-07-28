@@ -6,9 +6,15 @@ const { spawnSync } = require('child_process');
 
 // remove existing type declarations
 const removeTypeDeclaration = async () => {
-  console.log('removing existing type declarations...')
+  console.log('removing existing type declarations...');
   const typeFiles = await fg(
-    ['packages/**/*.d.ts', 'functions/**/*.d.ts','packages/**/*.d.ts.map', 'functions/**/*.d.ts.map', '**/types/**'],
+    [
+      'packages/**/*.d.ts',
+      'functions/**/*.d.ts',
+      'packages/**/*.d.ts.map',
+      'functions/**/*.d.ts.map',
+      '**/types/**',
+    ],
     {
       ignore: ['**/node_modules/**'],
       onlyFiles: false,
@@ -23,7 +29,7 @@ const removeTypeDeclaration = async () => {
 };
 
 const runBuildCommand = () => {
-  console.log('running build command...')
+  console.log('running build command...');
   const result = spawnSync(
     'npx',
     ['tsc', '--allowJs', '--emitDeclarationOnly'],
@@ -58,13 +64,13 @@ const runBuildCommand = () => {
 // };
 
 const updatePackageJsonFiles = async () => {
-  console.log('updating package.json files...')
-  const pkgFiles = await fg([
-    './functions/**/package.json',
-    './packages/**/package.json',
-  ], {
-    ignore: ['**/node_modules/**'],
-  });
+  console.log('updating package.json files...');
+  const pkgFiles = await fg(
+    ['./functions/**/package.json', './packages/**/package.json'],
+    {
+      ignore: ['**/node_modules/**'],
+    }
+  );
   const promises = pkgFiles.map(async (file) => {
     const pkg = await fs.readJson(file);
     pkg.types = './index.d.ts';
