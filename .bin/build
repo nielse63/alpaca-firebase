@@ -73,6 +73,7 @@ const updatePackageJsonFiles = async () => {
   );
   const promises = pkgFiles.map(async (file) => {
     const pkg = await fs.readJson(file);
+    if (pkg.types === './index.d.ts') return;
     pkg.types = './index.d.ts';
     await fs.writeJson(file, pkg, { spaces: 2 });
     console.log(`Updated ${file}`);
