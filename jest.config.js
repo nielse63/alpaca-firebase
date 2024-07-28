@@ -22,24 +22,19 @@ module.exports = {
   // collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['src/**/*.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/packages/**/*.js',
+    '<rootDir>/functions/**/*.js',
+  ],
 
   // The directory where Jest should output its coverage files
   // coverageDirectory: undefined,
 
   // An array of regexp pattern strings used to skip coverage collection
-  coveragePathIgnorePatterns: [
-    '/node_modules/',
-    '/dist/',
-    '/__fixtures__/',
-    '/__tests__/',
-    '<rootDir>/src/types.d.ts',
-    '<rootDir>/src/alpaca-trading-script.ts',
-    '<rootDir>/src/index.ts',
-  ],
+  coveragePathIgnorePatterns: ['/node_modules/', '/dist/', '/__tests__/'],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'babel',
+  coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: ['text-summary', ...coverageReporters],
@@ -174,9 +169,9 @@ module.exports = {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  transform: {
-    '\\.[jt]sx?$': 'babel-jest',
-  },
+  // transform: {
+  //   '\\.[jt]sx?$': 'babel-jest',
+  // },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: ['/node_modules/', '\\.pnp\\.[^\\/]+$'],

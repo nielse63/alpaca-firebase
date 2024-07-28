@@ -1,0 +1,7 @@
+# .npmignore
+*.log
+**/__tests__/**
+*.spec.js
+.env
+.env.test
+.firebaserc

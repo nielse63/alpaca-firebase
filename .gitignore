@@ -131,6 +131,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# other
 .env
 .env.test
 tmp/*
@@ -140,6 +141,7 @@ data/*
 backtest.json
 .bin/rsync
 *.*cache
+*.zip
 
 # Firebase cache
 .firebase/
@@ -149,4 +151,5 @@ backtest.json
 # Uncomment this if you'd like others to create their own Firebase project.
 # For a team working on the same Firebase project(s), it is recommended to leave
 # it commented so all members can deploy to the same project(s) in .firebaserc.
-# .firebaserc
+.firebaserc
+alpaca-app-key.json

@@ -1,60 +1,78 @@
 {
-  "name": "alpaca-trading-scripts",
-  "version": "2.0.0",
+  "name": "alpaca-firebase",
+  "version": "1.0.0",
   "description": "Algotrading bot example using TypeScript",
-  "main": "functions/index.js",
+  "main": "./index.js",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "ci": ".bin/ci",
-    "test:old": "dotenvx run --env-file=.env.test -- jest",
     "test": "jest --passWithNoTests",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
-    "preserve": "cp .env functions/.env",
+    "preserve": ".bin/set-env",
     "serve": "firebase serve",
-    "predeploy": "cp .env functions/.env",
-    "deploy": "firebase deploy"
+    "predeploy": ".bin/set-env",
+    "deploy": "firebase deploy",
+    "build": ".bin/build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nielse63/alpaca-trading-scripts.git"
+    "url": "git+https://github.com/nielse63/alpaca-firebase.git"
   },
   "keywords": [],
   "author": "Erik Nielsen <erik@312development.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nielse63/alpaca-trading-scripts/issues"
+    "url": "https://github.com/nielse63/alpaca-firebase/issues"
   },
-  "homepage": "https://github.com/nielse63/alpaca-trading-scripts#readme",
+  "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "engines": {
     "node": ">=22.5.1"
   },
+  "workspaces": [
+    "./packages/*"
+  ],
   "dependencies": {
+    "@alpaca-firebase/account": "^1.0.0",
+    "@alpaca-firebase/alpaca": "^1.0.0",
+    "@alpaca-firebase/helpers": "^1.0.0",
+    "@alpaca-firebase/orders": "^1.0.0",
+    "@alpaca-firebase/positions": "^1.0.0",
+    "@alpaca-firebase/quote": "^1.0.0",
     "dotenv": "^16.4.5",
     "firebase": "^10.12.4"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.6.4",
     "@nielse63/copy-env": "^1.1.0",
+    "@release-it/bumper": "^6.0.1",
     "babel-jest": "^29.7.0",
+    "dependency-tree": "^11.0.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^28.6.0",
+    "eslint-plugin-jest-extended": "^2.4.0",
+    "eslint-plugin-monorepo": "^0.3.2",
+    "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "husky": "^9.1.2",
     "jest": "^29.7.0",
     "jest-extended": "^4.0.2",
     "lint-staged": "^15.2.7",
-    "prettier": "^3.3.3"
+    "madge": "^7.0.0",
+    "prettier": "^3.3.3",
+    "release-it": "^17.6.0",
+    "typescript": "^5.5.4"
   },
   "lint-staged": {
-    "*.{json,md}": "prettier --write --cache",
-    "*.{ts,js}": [
+    "*.{json,md,yml}": "prettier --write --cache",
+    "*.js": [
       "eslint --fix --cache",
       "prettier --write --cache"
-    ]
+    ],
+    "./packages/**/*.{json,js}": ".bin/package-doctor"
   }
 }

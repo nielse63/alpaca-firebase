@@ -9,12 +9,13 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": ">=22"
+    "node": "22"
   },
-  "main": "index.js",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {
-    "@alpacahq/alpaca-trade-api": "^3.1.1",
-    "axios": "^1.7.2",
+    "@alpaca-firebase/account": "^1.0.0",
+    "@alpaca-firebase/orders": "^1.0.0",
     "dotenv": "^16.4.5",
     "firebase-admin": "^12.1.0",
     "firebase-functions": "^5.0.0"

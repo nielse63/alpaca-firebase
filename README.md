@@ -1,30 +1,38 @@
-# alpaca-trading-scripts
+# alpaca-firebase
 
 > Algotrading bot example using TypeScript
 
 [Learn how to create your first algotrading bot on Medium.](https://medium.com/@ErikKyleNielsen/write-your-first-typescript-algotrading-bot-8194dfe60e5f)
 
+## Prerequisites
+
+```bash
+node `v22.5.1`
+`npm i -g firebase-tools`
+```
+
 ## Installation
 
 ```bash
-git clone https://github.com/nielse63/alpaca-trading-scripts.git
-cd alpaca-trading-scripts
+git clone https://github.com/nielse63/alpaca-firebase.git
+cd alpaca-firebase
 nvm use
 npm ci
 ```
 
 ## Usage
 
-```bash
-npm run build
-npm start
-```
+| Command          | Description                        |
+| ---------------- | ---------------------------------- |
+| `npm run serve`  | Run the firebase functions locally |
+| `npm run deploy` | Deploy functions to production     |
 
 ### Development
 
-```bash
-npm run dev
-```
+| Command         | Description                     |
+| --------------- | ------------------------------- |
+| `npm run lint`  | Lint and format source files    |
+| `npm run build` | Generate type declaration files |
 
 ### Testing
 
@@ -33,15 +41,6 @@ npm test
 
 # with coverage
 npm test -- --coverage
-```
-
-### Running in production
-
-To execute in a production environment:
-
-```bash
-#!/usr/bin/env bash
-/path/to/alpaca-trading-scripts/.bin/run
 ```
 
 ### Creating a new release

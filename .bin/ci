@@ -9,7 +9,7 @@ for dir in $node_modules; do
   echo "Removing node_modules in $dir"
   trash node_modules
 done
-package_files=$(find . -name 'package.json')
+package_files=$(find . -name 'package.json' -maxdepth 2 -not -path '*/node_modules/*')
 
 for file in $package_files; do
   dir=$(dirname "$file")
