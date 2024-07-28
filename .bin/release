@@ -1,97 +1,82 @@
-#!/usr/bin/env node
-const fs = require('fs-extra');
-const fg = require('fast-glob');
-const path = require('path');
-const dependencyTree = require('dependency-tree');
-const { spawnSync } = require('child_process');
+#!/usr/bin/env bash
+set -e
 
-const root = path.resolve(__dirname, '..');
-let dependenciesMap = {};
+# vars
+root=$(realpath "$(dirname  "$(dirname "$0")")")
+functions=$(realpath "$root/functions")
 
-const getEntryFiles = async () => {
-  const files = await fg('packages/*/package.json');
-  const output = await Promise.all(
-    files.map(async (file) => {
-      const {
-        name,
-        version,
-        dependencies = {},
-      } = await fs.readJson(path.resolve(root, file));
-      return {
-        dir: path.dirname(file),
-        version,
-        name,
-        dependencies: Object.keys(dependencies).filter((dep) => {
-          return dep.startsWith('@alpaca-firebase/');
-        }),
-      };
-    })
-  );
-  return output;
-};
+# arguments
+increment="patch";
+force=
+dry_run=false
+while [[ "$1" =~ ^- && ! "$1" == "--" ]]; do case $1 in
+  --patch )
+    increment="patch"
+    ;;
+  --minor )
+    increment="minor"
+    ;;
+  --major )
+    increment="major"
+    ;;
+  --force )
+    force=true
+    ;;
+  --dry-ryn )
+    dry_run=true
+    ;;
+esac; shift; done
+if [[ "$1" == '--' ]]; then shift; fi
 
-const deps = async () => {
-  const releasedPackages = new Set();
-  const files = await getEntryFiles();
-  const sortedPackages = files.sort((a, b) => {
-    return a.dependencies.length - b.dependencies.length;
-  });
-  for (const pkg of sortedPackages) {
-    pkg.dependencies.forEach((dep) => {
-      if (!releasedPackages.has(dep)) {
-        console.error(
-          `${dep} is not released yet (required by ${pkg.name}). exiting...`
-        );
-        process.exit(1);
-      }
-    });
+# Check if there are uncommitted changes
+if [[ ! $force && -n "$(git status --porcelain)" ]]; then
+  echo "Uncommitted changes - exiting";
+  exit 0;
+fi
 
-    console.log(`releasing ${pkg.name}`);
-    const result = spawnSync(
-      'npx',
-      [
-        'release-it',
-        '--increment=patch',
-        '--no-git',
-        '--npm.publish=true',
-        '--github.release=false',
-        '--npm.publishArgs=--access=public',
-        '--ci',
-      ],
-      {
-        cwd: path.resolve(root, pkg.dir),
-        stdio: 'inherit',
-      }
-    );
+# Check if the current branch is main
+branch=$(git branch --show-current)
+if [[ ! $force && "$branch" != "main" ]]; then
+  echo "Not on main branch - exiting";
+  exit 0;
+fi
 
-    if (result.error) {
-      console.error(result.error);
-      process.exit(1);
-    }
+# pre-checks
+npm run lint
+npm test
+npm run build
 
-    if (result.status !== 0) {
-      console.error('Build failed');
-      process.exit(1);
-    }
-    releasedPackages.add(pkg.name);
-  }
-  // console.log(sortedPackages);
-  // files.forEach((file) => {
-  //   const pkgName = '@alpaca-firebase/' + file.split('/')[1];
-  //   dependenciesMap[pkgName] = 0;
-  // });
-  // files.forEach(readDependencies);
-  // const sortedDependencies = Object.keys(dependenciesMap).sort(
-  //   (a, b) => dependenciesMap[b] - dependenciesMap[a]
-  // );
-  // const packagePaths = sortedDependencies.map((dep) => {
-  //   return `./packages/${dep.split('/')[1]}`;
-  // });
-  // const pkg = await fs.readJson(path.resolve(root, 'package.json'));
-  // pkg.workspaces = [...packagePaths, './functions'];
-  // await fs.writeJson(path.resolve(root, 'package.json'), pkg, {
-  //   spaces: 2,
-  // });
-};
+# release
+npm version $increment --workspaces --no-git-tag-version --include-workspace-root
+npm publish --access public --workspaces --dry-run=$dry_run --include-workspace-root
 
-deps().catch(console.error);
+# get prev/new version
+prev_version=$(git describe --tags --abbrev=0)
+new_version=$(npm show . version)
+if [ "${new_version::1}" != "v" ]; then
+  new_version="v${new_version}"
+fi
+
+# update ./functions
+cd "$functions"
+npm update --save
+npm version "$new_version" --no-git-tag-version
+cd "$root"
+
+# commit & push changes
+git add . --update
+git commit -m "Release: $new_version"
+git tag --annotate --message="Release: $new_version" "$new_version"
+git push --follow-tags --set-upstream origin "$branch"
+
+# create github release
+# changelog=$(git log --pretty=format:"* %s (%h)" "$prev_version".."$new_version")
+gh release create "$new_version" \
+  --generate-notes \
+  --verify-tag \
+  --latest \
+  --title "$new_version" \
+  --notes-start-tag "$prev_version"
+
+# deploy function
+npm run deploy
