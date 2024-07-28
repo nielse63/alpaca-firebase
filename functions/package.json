@@ -11,17 +11,11 @@
   "engines": {
     "node": "22"
   },
-  "main": "index.js",
-  "types": "./types/*.d.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "dependencies": {
     "@alpaca-firebase/account": "^1.0.0",
-    "@alpaca-firebase/alpaca": "^1.0.0",
-    "@alpaca-firebase/helpers": "^1.0.0",
     "@alpaca-firebase/orders": "^1.0.0",
-    "@alpaca-firebase/positions": "^1.0.0",
-    "@alpaca-firebase/quote": "^1.0.0",
-    "@alpacahq/alpaca-trade-api": "^3.1.1",
-    "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "firebase-admin": "^12.1.0",
     "firebase-functions": "^5.0.0"

@@ -2,8 +2,8 @@
   "name": "@alpaca-firebase/helpers",
   "version": "1.0.0",
   "description": "Utility functions for alpaca-firebase",
-  "main": "index.js",
-  "types": "./types/*.d.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "devDependencies": {},
   "scripts": {
     "test": "jest"

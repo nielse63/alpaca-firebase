@@ -2,8 +2,8 @@
   "name": "@alpaca-firebase/alpaca",
   "version": "1.0.0",
   "description": "Alpaca object for alpaca-firebase",
-  "main": "index.js",
-  "types": "./types/*.d.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "jest"
   },
