@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/orders",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Order functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
-    "@alpaca-firebase/account": "^1.0.3",
-    "@alpaca-firebase/alpaca": "^1.0.3",
-    "@alpaca-firebase/helpers": "^1.0.3",
-    "@alpaca-firebase/positions": "^1.0.3",
-    "@alpaca-firebase/quote": "^1.0.3",
+    "@alpaca-firebase/account": "^1.0.4",
+    "@alpaca-firebase/alpaca": "^1.0.4",
+    "@alpaca-firebase/helpers": "^1.0.4",
+    "@alpaca-firebase/positions": "^1.0.4",
+    "@alpaca-firebase/quote": "^1.0.4",
     "firebase-functions": "^5.0.1"
   }
 }
