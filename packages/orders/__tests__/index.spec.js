@@ -44,6 +44,14 @@ describe('closeOrdersForSymbol', () => {
     expect(orderIds).toEqual(['order1', 'order2']);
     expect(alpaca.cancelOrder).toHaveBeenCalledTimes(2);
   });
+
+  it('should log error and return empty array when handling an error', async () => {
+    alpaca.getOrders.mockRejectedValue(new Error('error'));
+    try {
+      const orderIds = await closeOrdersForSymbol('BTCUSD');
+      expect(orderIds).toEqual([]);
+    } catch (error) {}
+  });
 });
 
 describe('createBuyOrder', () => {
@@ -92,6 +100,14 @@ describe('createSellOrder', () => {
       position_intent: 'sell_to_close',
       qty: 2,
     });
+  });
+
+  it('should return null if position qty is 0', async () => {
+    const mockPosition = undefined;
+    getPositionForSymbol.mockResolvedValue(mockPosition);
+
+    const order = await createSellOrder('BTCUSD');
+    expect(order).toBeNull();
   });
 });
 

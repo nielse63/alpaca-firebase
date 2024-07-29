@@ -41,6 +41,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
         'no-console': 'off',
+        'no-empty': ['error', { allowEmptyCatch: true }],
       },
     },
   ],
