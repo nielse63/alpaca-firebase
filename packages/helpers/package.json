@@ -4,7 +4,6 @@
   "description": "Utility functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
-  "devDependencies": {},
   "scripts": {
     "test": "jest"
   },
@@ -17,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/nielse63/alpaca-firebase/issues"
   },
-  "homepage": "https://github.com/nielse63/alpaca-firebase#readme"
+  "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
+  "dependencies": {
+    "firebase-functions": "^5.0.1"
+  }
 }
