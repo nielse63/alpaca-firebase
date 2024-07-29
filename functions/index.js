@@ -13,14 +13,13 @@ exports.orders = onRequest(async (req, res) => {
   }
   logger.info('orders request body:', JSON.stringify(req.body));
   const { body } = req;
-  if (body.test) {
-    process.env.NODE_ENV = 'test';
-  }
-  const { symbol, side, price = null } = body;
+  const { symbol, side } = body;
   if (!symbol) {
+    logger.error('no symbol provided');
     return res.status(400).json({ message: 'symbol is required' });
   }
   if (!side) {
+    logger.error('no side provided');
     return res.status(400).json({ message: 'symbol is required' });
   }
 
@@ -32,12 +31,16 @@ exports.orders = onRequest(async (req, res) => {
 
   // check buying power
   try {
+    logger.info('starting getBuyingPower');
     const buyingPower = await getBuyingPower();
+    logger.info('available buying power:', buyingPower);
     output.buying_power = buyingPower;
     if (buyingPower <= 5) {
+      logger.info('insufficient buying power');
       return res.status(400).json({ message: 'insufficient buying power' });
     }
   } catch (error) {
+    logger.error('error in getBuyingPower:', error);
     return res
       .status(500)
       .json({ message: error.message, block: 'getBuyingPower', error });
@@ -45,8 +48,11 @@ exports.orders = onRequest(async (req, res) => {
 
   // cancel open buy orders
   try {
+    logger.info('starting closeOrdersForSymbol');
     output.cancelled_orders = await closeOrdersForSymbol(symbol, 'buy');
+    logger.info('cancelled orders:', output.cancelled_orders);
   } catch (error) {
+    logger.error('error in closeOrdersForSymbol:', error);
     return res
       .status(500)
       .json({ message: error.message, block: 'closeOrdersForSymbol', error });
@@ -54,13 +60,17 @@ exports.orders = onRequest(async (req, res) => {
 
   // place new order
   try {
-    const order = await createOrder(symbol, side, price);
+    logger.info('starting createOrder');
+    const order = await createOrder(symbol, side);
+    logger.info('new order:', order);
     output.order = order;
   } catch (error) {
+    logger.error('error in createOrder:', error);
     return res
       .status(500)
       .json({ message: error.message, block: 'createOrder', error });
   }
 
+  logger.info('orders response:', output);
   return res.json(output);
 });
