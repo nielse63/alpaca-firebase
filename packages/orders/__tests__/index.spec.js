@@ -18,6 +18,10 @@ jest.mock('@alpaca-firebase/account');
 jest.mock('@alpaca-firebase/positions');
 
 describe('getOrdersForSymbol', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should get orders for a symbol', async () => {
     const mockOrders = [{ id: 'order1' }, { id: 'order2' }];
     alpaca.getOrders.mockResolvedValue(mockOrders);
@@ -46,10 +50,14 @@ describe('closeOrdersForSymbol', () => {
   });
 
   it('should log error and return empty array when handling an error', async () => {
-    alpaca.getOrders.mockRejectedValue(new Error('error'));
+    alpaca.getOrders.mockResolvedValue([{ id: 1 }]);
+    alpaca.cancelOrder.mockRejectedValue(new Error('error'));
+    console.error = jest.fn();
     try {
-      const orderIds = await closeOrdersForSymbol('BTCUSD');
+      const spy = jest.spyOn(console, 'error');
+      const orderIds = closeOrdersForSymbol('BTCUSD');
       expect(orderIds).toEqual([]);
+      expect(spy).toHaveBeenCalled();
     } catch (error) {}
   });
 });
