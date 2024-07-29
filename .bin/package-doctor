@@ -17,11 +17,9 @@ const addNpmignore = async () => {
     onlyFiles: false,
     onlyDirectories: true,
   });
-  const packagesWithoutNpmignore = [...packages, './functions'].filter(
-    (pkg) => {
-      return !fs.existsSync(path.join(pkg, '.npmignore'));
-    }
-  );
+  const packagesWithoutNpmignore = packages.filter((pkg) => {
+    return !fs.existsSync(path.join(pkg, '.npmignore'));
+  });
   const promises = packagesWithoutNpmignore.map(async (pkg) => {
     console.log(`Adding .npmignore to ${pkg}`);
     await fs.writeFile(path.join(pkg, '.npmignore'), NPMIGNORE_TEMPLATE);

@@ -16,14 +16,6 @@ jest.mock('@alpaca-firebase/helpers');
 jest.mock('@alpaca-firebase/quote');
 jest.mock('@alpaca-firebase/account');
 jest.mock('@alpaca-firebase/positions');
-// jest.mock('..', () => {
-//   const actual = jest.requireActual('..');
-//   return {
-//     ...actual,
-//     createBuyOrder: jest.fn(),
-//     createSellOrder: jest.fn(),
-//   };
-// });
 
 describe('getOrdersForSymbol', () => {
   it('should get orders for a symbol', async () => {
@@ -71,9 +63,8 @@ describe('createBuyOrder', () => {
     expect(alpaca.createOrder).toHaveBeenCalledWith({
       side: 'buy',
       symbol: 'BTC/USD',
-      type: 'limit',
-      limit_price: 500,
-      qty: 1.98,
+      type: 'market',
+      notional: 990,
       time_in_force: 'gtc',
       position_intent: 'buy_to_open',
     });
@@ -95,8 +86,7 @@ describe('createSellOrder', () => {
     expect(order).toEqual(mockOrder);
     expect(alpaca.createOrder).toHaveBeenCalledWith({
       side: 'sell',
-      type: 'limit',
-      limit_price: 500,
+      type: 'market',
       time_in_force: 'gtc',
       symbol: 'BTC/USD',
       position_intent: 'sell_to_close',
