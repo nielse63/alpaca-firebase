@@ -1,6 +1,5 @@
 const alpaca = require('@alpaca-firebase/alpaca');
-const { formatSymbol, toDecimal } = require('@alpaca-firebase/helpers');
-const { getCryptoSnapshot, getMidPrice } = require('@alpaca-firebase/quote');
+const { formatSymbol } = require('@alpaca-firebase/helpers');
 const { getBuyingPower } = require('@alpaca-firebase/account');
 const { getPositionForSymbol } = require('@alpaca-firebase/positions');
 
@@ -30,18 +29,12 @@ const closeOrdersForSymbol = async (symbol) => {
 
 const createBuyOrder = async (symbol, config = {}) => {
   const maxBuyingPower = await getBuyingPower();
-  const snapshot = await getCryptoSnapshot(symbol);
-  const price = getMidPrice(snapshot);
   const buyingPower = maxBuyingPower * 0.99;
-  const qty = toDecimal(buyingPower / price, 4);
   const options = {
     side: 'buy',
     symbol: formatSymbol(symbol),
-    // type: 'market',
-    // notional: buyingPower,
-    type: 'limit',
-    limit_price: price,
-    qty,
+    type: 'market',
+    notional: buyingPower,
     time_in_force: 'gtc',
     position_intent: 'buy_to_open',
     ...config,
@@ -56,13 +49,10 @@ const createSellOrder = async (symbol, config = {}) => {
   if (!position) {
     return null;
   }
-  const snapshot = await getCryptoSnapshot(symbol);
-  const price = getMidPrice(snapshot);
   const qty = parseFloat(position.qty);
   const options = {
     side: 'sell',
-    type: 'limit',
-    limit_price: price,
+    type: 'market',
     time_in_force: 'gtc',
     symbol: formatSymbol(symbol),
     position_intent: 'sell_to_close',

@@ -8,14 +8,15 @@
   },
   "scripts": {
     "ci": ".bin/ci",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
     "preserve": ".bin/set-env",
     "serve": "firebase serve",
     "predeploy": ".bin/set-env",
     "deploy": "firebase deploy",
-    "build": ".bin/build"
+    "build": ".bin/build",
+    "release": ".bin/release"
   },
   "repository": {
     "type": "git",

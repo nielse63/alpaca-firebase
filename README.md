@@ -6,9 +6,11 @@
 
 ## Prerequisites
 
+Node `v22.5.1` and a global installation of `firebase-tools` are required to work on this project:
+
 ```bash
-node `v22.5.1`
-`npm i -g firebase-tools`
+nvm install v22.5.1
+npm i -g firebase-tools
 ```
 
 ## Installation

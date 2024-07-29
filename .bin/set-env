@@ -1,6 +1,20 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env node
+const fs = require('fs-extra');
+const path = require('path');
 
-rm functions/.env
-cp .env functions/.env
-echo "NODE_ENV=production" >> functions/.env
+const root = path.resolve(__dirname, '..');
+
+const setEnv = async () => {
+  console.log('Setting environment variables in ./functions/.env');
+  const src = path.resolve(root, '.env');
+  const dest = path.resolve(root, 'functions/.env');
+  await fs.remove(dest);
+  const srcContent = await fs.readFile(src, 'utf8');
+  const validLines = srcContent.split('\n').filter((line) => {
+    return line.startsWith('ALPACA_');
+  });
+  const newContent = [...validLines, 'NODE_ENV="production"'].join('\n');
+  await fs.writeFile(dest, newContent);
+};
+
+setEnv().catch(console.error);
