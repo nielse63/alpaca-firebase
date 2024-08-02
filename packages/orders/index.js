@@ -34,7 +34,7 @@ const createBuyOrder = async (symbol, config = {}) => {
     side: 'buy',
     symbol: formatSymbol(symbol),
     type: 'market',
-    notional: parseFloat(`${buyingPower}`.toFixed(2)),
+    notional: parseFloat(buyingPower.toFixed(2)),
     time_in_force: 'gtc',
     position_intent: 'buy_to_open',
     ...config,
