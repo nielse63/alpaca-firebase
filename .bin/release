@@ -61,6 +61,7 @@ fi
 cd "$functions"
 npm update --save
 npm version "$new_version" --no-git-tag-version
+npx jest ./functions
 cd "$root"
 
 # commit & push changes

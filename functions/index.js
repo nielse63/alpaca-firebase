@@ -1,6 +1,6 @@
 require('dotenv').config();
-const { onRequest } = require('firebase-functions/v2/https'); // eslint-disable-line import/no-unresolved
-const logger = require('firebase-functions/logger'); // eslint-disable-line import/no-unresolved
+const { onRequest } = require('firebase-functions/v2/https');
+const logger = require('firebase-functions/logger');
 const {
   createOrder,
   closeOrdersForSymbol,
