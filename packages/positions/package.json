@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/positions",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Position functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
-    "@alpaca-firebase/alpaca": "^1.0.4",
+    "@alpaca-firebase/alpaca": "^1.0.5",
     "firebase-functions": "^5.0.1"
   }
 }
