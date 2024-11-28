@@ -23,6 +23,6 @@
     "@alpaca-firebase/helpers": "^1.0.5",
     "@alpaca-firebase/positions": "^1.0.5",
     "@alpaca-firebase/quote": "^1.0.5",
-    "firebase-functions": "^5.0.1"
+    "firebase-functions": "^6.1.1"
   }
 }

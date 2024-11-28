@@ -20,6 +20,6 @@
   "dependencies": {
     "@alpacahq/alpaca-trade-api": "^3.1.1",
     "dotenv": "^16.4.5",
-    "firebase-functions": "^5.0.1"
+    "firebase-functions": "^6.1.1"
   }
 }
