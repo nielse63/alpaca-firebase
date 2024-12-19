@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
-    "firebase-functions": "^5.0.1"
+    "firebase-functions": "^6.1.2"
   }
 }
