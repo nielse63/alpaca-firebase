@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/account",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Account functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
-    "@alpaca-firebase/alpaca": "^1.0.5",
+    "@alpaca-firebase/alpaca": "^1.0.6",
     "firebase-functions": "^6.2.0"
   }
 }
