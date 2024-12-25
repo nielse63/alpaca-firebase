@@ -17,7 +17,7 @@ exports.orders = onRequest(async (req, res) => {
   logger.info('orders request body:', JSON.stringify(req.body));
   const { body } = req;
   const { symbol } = body;
-  const side = body.side.toLowerCase();
+  const side = body?.side?.toLowerCase();
   if (!symbol) {
     logger.error('no symbol provided');
     return res.status(400).json({ message: 'symbol is required' });

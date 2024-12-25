@@ -18,11 +18,11 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
-    "@alpaca-firebase/account": "^1.0.8",
-    "@alpaca-firebase/alpaca": "^1.0.8",
-    "@alpaca-firebase/helpers": "^1.0.8",
-    "@alpaca-firebase/positions": "^1.0.8",
-    "@alpaca-firebase/quote": "^1.0.8",
+    "@alpaca-firebase/account": "file:../packages/account",
+    "@alpaca-firebase/alpaca": "file:../packages/alpaca",
+    "@alpaca-firebase/helpers": "file:../packages/helpers",
+    "@alpaca-firebase/positions": "file:../packages/positions",
+    "@alpaca-firebase/quote": "file:../packages/quote",
     "firebase-functions": "^6.2.0"
   }
 }
