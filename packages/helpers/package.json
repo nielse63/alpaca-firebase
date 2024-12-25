@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/helpers",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Utility functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
