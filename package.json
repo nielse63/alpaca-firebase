@@ -64,7 +64,7 @@
     "typescript": "^5.7.2"
   },
   "lint-staged": {
-    "*.{json,md,yml}": "prettier --write --cache",
+    "*.{json,md,yml,ts}": "prettier --write --cache",
     "*.js": [
       "eslint --fix --cache",
       "prettier --write --cache"
