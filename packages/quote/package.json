@@ -19,7 +19,7 @@
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
     "@alpaca-firebase/helpers": "^1.0.5",
-    "axios": "^1.7.2",
-    "firebase-functions": "^5.0.1"
+    "axios": "^1.7.9",
+    "firebase-functions": "^5.1.1"
   }
 }
