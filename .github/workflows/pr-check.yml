@@ -36,7 +36,7 @@ jobs:
       - run: npm run build --if-present
       - run: npm test -- --coverage
       - name: Codecov
-        uses: codecov/codecov-action@v4.0.1
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: nielse63/alpaca-firebase
