@@ -20,6 +20,6 @@
   "dependencies": {
     "@alpaca-firebase/helpers": "^1.0.5",
     "axios": "^1.7.9",
-    "firebase-functions": "^5.1.1"
+    "firebase-functions": "^6.2.0"
   }
 }
