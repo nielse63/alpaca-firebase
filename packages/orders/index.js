@@ -35,7 +35,7 @@ const createBuyOrder = async (symbol, config = {}) => {
     symbol: formatSymbol(symbol),
     type: constants.MARKET,
     notional: parseFloat(buyingPower.toFixed(2)),
-    time_in_force: constants.GTC,
+    time_in_force: constants.DAY,
     position_intent: constants.BUY_TO_OPEN,
     ...config,
   };
@@ -53,7 +53,7 @@ const createSellOrder = async (symbol, config = {}) => {
   const options = {
     side: constants.SELL,
     type: constants.MARKET,
-    time_in_force: constants.GTC,
+    time_in_force: constants.DAY,
     symbol: formatSymbol(symbol),
     position_intent: constants.SELL_TO_CLOSE,
     qty,

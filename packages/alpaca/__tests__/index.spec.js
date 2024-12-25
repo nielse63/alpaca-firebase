@@ -22,6 +22,7 @@ describe('Alpaca configuration', () => {
     expect(Alpaca).toHaveBeenCalledWith({
       keyId: 'test_key',
       secretKey: 'test_secret',
+      baseUrl: 'https://paper-api.alpaca.markets',
       paper: true,
     });
   });

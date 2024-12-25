@@ -82,7 +82,7 @@ describe('orders', () => {
         symbol: 'BTC/USD',
         type: 'market',
         notional: 990,
-        time_in_force: 'gtc',
+        time_in_force: 'day',
         position_intent: 'buy_to_open',
       });
     });
@@ -104,7 +104,7 @@ describe('orders', () => {
       expect(alpaca.createOrder).toHaveBeenCalledWith({
         side: 'sell',
         type: 'market',
-        time_in_force: 'gtc',
+        time_in_force: 'day',
         symbol: 'BTC/USD',
         position_intent: 'sell_to_close',
         qty: 2,
@@ -136,7 +136,7 @@ describe('orders', () => {
         symbol: 'BTC/USD',
         type: 'market',
         notional: 99,
-        time_in_force: 'gtc',
+        time_in_force: 'day',
         position_intent: 'buy_to_open',
       });
     });
@@ -157,7 +157,7 @@ describe('orders', () => {
         symbol: 'BTC/USD',
         type: 'market',
         qty: 2,
-        time_in_force: 'gtc',
+        time_in_force: 'day',
         position_intent: 'sell_to_close',
       });
     });

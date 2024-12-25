@@ -5,6 +5,7 @@ export namespace constants {
   let SELL: string;
   let MARKET: string;
   let GTC: string;
+  let DAY: string;
   let BUY_TO_OPEN: string;
   let SELL_TO_CLOSE: string;
   let OPEN: string;

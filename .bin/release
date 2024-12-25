@@ -42,9 +42,9 @@ if [[ ! $force && "$branch" != "main" ]]; then
 fi
 
 # pre-checks
-npm run lint
-npm test
-npm run build
+npm run build --if-present
+npm run lint --if-present
+npm run test --if-present
 
 # release
 npm version $increment --workspaces --no-git-tag-version --include-workspace-root
