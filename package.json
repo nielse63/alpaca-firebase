@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "engines": {
-    "node": ">=22.5.1"
+    "node": ">=22.12.0"
   },
   "workspaces": [
     "./packages/*"
