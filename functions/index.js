@@ -9,7 +9,10 @@ const { getBuyingPower } = require('@alpaca-firebase/account');
 
 exports.orders = onRequest(async (req, res) => {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'method not allowed' });
+    return res.status(405).json({
+      message: 'method not allowed',
+      details: `provided method: ${req.method}`,
+    });
   }
   logger.info('orders request body:', JSON.stringify(req.body));
   const { body } = req;
@@ -20,7 +23,7 @@ exports.orders = onRequest(async (req, res) => {
   }
   if (!side) {
     logger.error('no side provided');
-    return res.status(400).json({ message: 'symbol is required' });
+    return res.status(400).json({ message: 'side is required' });
   }
 
   const output = {

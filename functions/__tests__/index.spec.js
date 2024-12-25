@@ -47,7 +47,10 @@ describe('firebase-functions', () => {
       req.method = 'GET';
       await orders(req, res);
       expect(res.status).toHaveBeenCalledWith(405);
-      expect(res.json).toHaveBeenCalledWith({ message: 'method not allowed' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'method not allowed',
+        details: 'provided method: GET',
+      });
     });
 
     it('should return 400 if symbol is missing', async () => {
@@ -63,7 +66,7 @@ describe('firebase-functions', () => {
       await orders(req, res);
       expect(logger.error).toHaveBeenCalledWith('no side provided');
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'symbol is required' });
+      expect(res.json).toHaveBeenCalledWith({ message: 'side is required' });
     });
 
     it('should return 400 if buying power is insufficient', async () => {

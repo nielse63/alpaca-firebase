@@ -6,7 +6,18 @@ const toDecimal = (value, points = 2) => {
   return parseFloat(`${numericValue.toFixed(points)}`);
 };
 
+const constants = {
+  BUY: 'buy',
+  SELL: 'sell',
+  MARKET: 'market',
+  GTC: 'gtc',
+  BUY_TO_OPEN: 'buy_to_open',
+  SELL_TO_CLOSE: 'sell_to_close',
+  OPEN: 'open',
+};
+
 module.exports = {
   formatSymbol,
   toDecimal,
+  constants,
 };
