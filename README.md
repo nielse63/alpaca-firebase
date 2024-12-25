@@ -6,10 +6,10 @@
 
 ## Prerequisites
 
-Node `v22.5.1` and a global installation of `firebase-tools` are required to work on this project:
+Node `v22.12.0` and a global installation of `firebase-tools` are required to work on this project:
 
 ```bash
-nvm install v22.5.1
+nvm install v22.12.0
 npm i -g firebase-tools
 ```
 
@@ -48,8 +48,10 @@ npm test -- --coverage
 ### Creating a new release
 
 ```bash
-gh release create
-npm version --no-git-tag-version from-git
-git add .
-git commit --no-edit --amend
+npm run release
+npm run release -- --patch    # release patch version
+npm run release -- --minor    # release minor version
+npm run release -- --major    # release major version
+npm run release -- --force    # run even with uncommitted changes
+npm run release -- --dry-ryn  # don't create an npm release
 ```

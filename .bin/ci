@@ -5,22 +5,32 @@ source "$(dirname "$0")/_helpers"
 
 node_modules=$(find . -name 'node_modules' -type d -maxdepth 2)
 for dir in $node_modules; do
-  dir=$(dirname "$dir")
-  echo "Removing node_modules in $dir"
-  trash node_modules
+  echo "Removing $dir"
+  trash "$dir"
 done
-package_files=$(find . -name 'package.json' -maxdepth 2 -not -path '*/node_modules/*')
 
-for file in $package_files; do
+# get all package.json files in the root and nested directories
+package_files=$(find . -name 'package.json' -type f -maxdepth 1 -not -path '*/node_modules/*')
+nested_package_files=$(find . -name 'package.json' -type f -maxdepth 2 -mindepth 2 -not -path '*/node_modules/*')
+package_files+=("$nested_package_files")
+
+for file in "${package_files[@]}"; do
   dir=$(dirname "$file")
   if [[ $dir == *"node_modules"* ]]; then
     continue
   fi
   echo "Installing dependencies in $dir"
   cd "$dir"
+  string=$(cat package.json)
+  args=()
+  if [[ $string == *"workspaces"* ]]; then
+    args+=(--workspaces --include-workspace-root)
+  fi
   if [ -f "$dir/package-lock.json" ]; then
-    npm ci
+    echo "Running: npm ci ${args[*]}"
+    npm ci "${args[@]}"
   else
-    npm i
+    echo "Running: npm install ${args[*]}"
+    npm install "${args[@]}"
   fi
 done
