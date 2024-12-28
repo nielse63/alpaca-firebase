@@ -13,6 +13,7 @@ jest.mock('firebase-functions/v2/https', () => ({
 jest.mock('firebase-functions/logger', () => ({
   info: jest.fn(),
   error: jest.fn(),
+  warn: jest.fn(),
 }));
 
 jest.mock('@alpaca-firebase/orders', () => ({
@@ -40,6 +41,7 @@ describe('firebase-functions', () => {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
+    jest.clearAllMocks();
   });
 
   describe('orders', () => {
@@ -73,10 +75,11 @@ describe('firebase-functions', () => {
       req.body = { symbol: 'AAPL', side: 'buy' };
       getBuyingPower.mockResolvedValue(5);
       await orders(req, res);
-      expect(logger.info).toHaveBeenCalledWith('insufficient buying power');
+      expect(logger.warn).toHaveBeenCalledWith('insufficient buying power');
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         message: 'insufficient buying power',
+        value: 5,
       });
     });
 

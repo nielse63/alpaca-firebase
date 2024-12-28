@@ -8,7 +8,7 @@
   },
   "scripts": {
     "ci": ".bin/ci",
-    "test": "jest",
+    "test": "jest .",
     "prepare": "husky || true",
     "lint": "eslint --fix --cache . && prettier --write --cache .",
     "preserve": ".bin/set-env",
