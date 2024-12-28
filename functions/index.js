@@ -6,6 +6,7 @@ const {
   closeOrdersForSymbol,
 } = require('@alpaca-firebase/orders');
 const { getBuyingPower } = require('@alpaca-firebase/account');
+const { constants } = require('@alpaca-firebase/helpers');
 
 exports.orders = onRequest(async (req, res) => {
   if (req.method !== 'POST') {
@@ -34,20 +35,24 @@ exports.orders = onRequest(async (req, res) => {
   };
 
   // check buying power
-  try {
-    logger.info('starting getBuyingPower');
-    const buyingPower = await getBuyingPower();
-    logger.info('available buying power:', buyingPower);
-    output.buying_power = buyingPower;
-    if (buyingPower <= 5) {
-      logger.info('insufficient buying power');
-      return res.status(400).json({ message: 'insufficient buying power' });
+  if (side === constants.BUY) {
+    try {
+      logger.info('starting getBuyingPower');
+      const buyingPower = await getBuyingPower();
+      logger.info('available buying power:', buyingPower);
+      output.buying_power = buyingPower;
+      if (buyingPower <= 5) {
+        logger.warn('insufficient buying power');
+        return res
+          .status(400)
+          .json({ message: 'insufficient buying power', value: buyingPower });
+      }
+    } catch (error) {
+      logger.error('error in getBuyingPower:', error);
+      return res
+        .status(500)
+        .json({ message: error.message, block: 'getBuyingPower', error });
     }
-  } catch (error) {
-    logger.error('error in getBuyingPower:', error);
-    return res
-      .status(500)
-      .json({ message: error.message, block: 'getBuyingPower', error });
   }
 
   // cancel open buy orders
