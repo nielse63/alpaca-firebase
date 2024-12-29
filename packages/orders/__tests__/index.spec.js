@@ -81,8 +81,8 @@ describe('orders', () => {
         side: 'buy',
         symbol: 'BTC/USD',
         type: 'market',
-        notional: 990,
-        time_in_force: 'day',
+        notional: 1000,
+        time_in_force: 'ioc',
         position_intent: 'buy_to_open',
       });
     });
@@ -104,8 +104,30 @@ describe('orders', () => {
       expect(alpaca.createOrder).toHaveBeenCalledWith({
         side: 'sell',
         type: 'market',
-        time_in_force: 'day',
+        time_in_force: 'ioc',
         symbol: 'BTC/USD',
+        position_intent: 'sell_to_close',
+        qty: 2,
+      });
+    });
+
+    it('should set time_in_force to `day` if the asset is not crypto', async () => {
+      const mockPosition = { qty: '2' };
+      const mockSnapshot = { midPrice: 500 };
+      const mockOrder = { id: 'order1' };
+      formatSymbol.mockReturnValue('SCHD');
+      getPositionForSymbol.mockResolvedValueOnce(mockPosition);
+      getCryptoSnapshot.mockResolvedValueOnce(mockSnapshot);
+      getMidPrice.mockReturnValueOnce(500);
+      alpaca.createOrder.mockResolvedValueOnce(mockOrder);
+
+      const order = await createSellOrder('SCHD');
+      expect(order).toEqual(mockOrder);
+      expect(alpaca.createOrder).toHaveBeenCalledWith({
+        side: 'sell',
+        type: 'market',
+        time_in_force: 'day',
+        symbol: 'SCHD',
         position_intent: 'sell_to_close',
         qty: 2,
       });
@@ -135,7 +157,26 @@ describe('orders', () => {
         side: 'buy',
         symbol: 'BTC/USD',
         type: 'market',
-        notional: 99,
+        notional: 100,
+        time_in_force: 'ioc',
+        position_intent: 'buy_to_open',
+      });
+    });
+    it('should set time_in_force to `day` if the asset is not crypto', async () => {
+      const mockOrder = { id: 'order1' };
+      formatSymbol.mockReturnValue('SCHD');
+      getBuyingPower.mockResolvedValueOnce(100);
+      getMidPrice.mockReturnValueOnce(10);
+      toDecimal.mockReturnValueOnce(9.9);
+      alpaca.createOrder.mockResolvedValueOnce(mockOrder);
+
+      const order = await createOrder('SCHD', 'buy');
+      expect(order).toEqual(mockOrder);
+      expect(alpaca.createOrder).toHaveBeenCalledWith({
+        side: 'buy',
+        symbol: 'SCHD',
+        type: 'market',
+        notional: 100,
         time_in_force: 'day',
         position_intent: 'buy_to_open',
       });
@@ -157,7 +198,7 @@ describe('orders', () => {
         symbol: 'BTC/USD',
         type: 'market',
         qty: 2,
-        time_in_force: 'day',
+        time_in_force: 'ioc',
         position_intent: 'sell_to_close',
       });
     });

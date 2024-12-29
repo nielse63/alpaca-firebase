@@ -16,7 +16,8 @@
     "predeploy": ".bin/set-env",
     "deploy": "firebase deploy",
     "build": ".bin/build",
-    "release": ".bin/release"
+    "release": ".bin/release",
+    "verify": ".bin/verify"
   },
   "repository": {
     "type": "git",
