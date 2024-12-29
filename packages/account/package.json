@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/account",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Account functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
