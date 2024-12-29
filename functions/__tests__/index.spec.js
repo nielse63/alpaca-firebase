@@ -50,8 +50,8 @@ describe('firebase-functions', () => {
       await orders(req, res);
       expect(res.status).toHaveBeenCalledWith(405);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'method not allowed',
-        details: 'provided method: GET',
+        message: 'request method GET not allowed',
+        status: 405,
       });
     });
 
@@ -60,7 +60,10 @@ describe('firebase-functions', () => {
       await orders(req, res);
       expect(logger.error).toHaveBeenCalledWith('no symbol provided');
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'symbol is required' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'symbol is required',
+        status: 400,
+      });
     });
 
     it('should return 400 if side is missing', async () => {
@@ -68,7 +71,10 @@ describe('firebase-functions', () => {
       await orders(req, res);
       expect(logger.error).toHaveBeenCalledWith('no side provided');
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ message: 'side is required' });
+      expect(res.json).toHaveBeenCalledWith({
+        message: 'side is required',
+        status: 400,
+      });
     });
 
     it('should return 400 if buying power is insufficient', async () => {
@@ -79,6 +85,7 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         message: 'insufficient buying power',
+        status: 400,
         value: 5,
       });
     });
@@ -95,8 +102,9 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
         message: error.message,
-        block: 'getBuyingPower',
+        block: 'checkBuyingPower',
         error,
+        status: 500,
       });
     });
 

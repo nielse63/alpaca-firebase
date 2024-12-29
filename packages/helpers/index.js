@@ -12,6 +12,7 @@ const constants = {
   MARKET: 'market',
   GTC: 'gtc',
   DAY: 'day',
+  IOC: 'ioc',
   BUY_TO_OPEN: 'buy_to_open',
   SELL_TO_CLOSE: 'sell_to_close',
   OPEN: 'open',

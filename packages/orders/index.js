@@ -28,14 +28,14 @@ const closeOrdersForSymbol = async (symbol) => {
 };
 
 const createBuyOrder = async (symbol, config = {}) => {
-  const maxBuyingPower = await getBuyingPower();
-  const buyingPower = maxBuyingPower * 0.99;
+  const buyingPower = await getBuyingPower();
+  const timeInForce = /USD$/.test(symbol) ? constants.IOC : constants.DAY;
   const options = {
     side: constants.BUY,
     symbol: formatSymbol(symbol),
     type: constants.MARKET,
     notional: parseFloat(buyingPower.toFixed(2)),
-    time_in_force: constants.DAY,
+    time_in_force: timeInForce,
     position_intent: constants.BUY_TO_OPEN,
     ...config,
   };
@@ -50,10 +50,11 @@ const createSellOrder = async (symbol, config = {}) => {
     return null;
   }
   const qty = parseFloat(position.qty);
+  const timeInForce = /USD$/.test(symbol) ? constants.IOC : constants.DAY;
   const options = {
     side: constants.SELL,
     type: constants.MARKET,
-    time_in_force: constants.DAY,
+    time_in_force: timeInForce,
     symbol: formatSymbol(symbol),
     position_intent: constants.SELL_TO_CLOSE,
     qty,
