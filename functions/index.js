@@ -11,8 +11,7 @@ const { getBuyingPower } = require('@alpaca-firebase/account');
 exports.orders = onRequest(async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({
-      message: 'method not allowed',
-      details: `provided method: ${req.method}`,
+      message: `request method ${req.method} not allowed`,
     });
   }
   logger.info('orders request body:', JSON.stringify(req.body));

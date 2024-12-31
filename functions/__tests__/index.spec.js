@@ -51,7 +51,6 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(405);
       expect(res.json).toHaveBeenCalledWith({
         message: 'request method GET not allowed',
-        status: 405,
       });
     });
 
@@ -62,7 +61,6 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         message: 'symbol is required',
-        status: 400,
       });
     });
 
@@ -73,7 +71,6 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         message: 'side is required',
-        status: 400,
       });
     });
 
@@ -85,7 +82,6 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         message: 'insufficient buying power',
-        status: 400,
         value: 5,
       });
     });
@@ -102,9 +98,8 @@ describe('firebase-functions', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({
         message: error.message,
-        block: 'checkBuyingPower',
+        block: 'getBuyingPower',
         error,
-        status: 500,
       });
     });
 
