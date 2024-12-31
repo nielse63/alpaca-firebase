@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/orders",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Order functions for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
