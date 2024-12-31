@@ -6,16 +6,27 @@ const {
   closeOrdersForSymbol,
 } = require('@alpaca-firebase/orders');
 const { constants } = require('@alpaca-firebase/helpers');
-const validateRequest = require('./src/validateRequest');
-const checkBuyingPower = require('./src/checkBuyingPower');
+const { getBuyingPower } = require('@alpaca-firebase/account');
 
 exports.orders = onRequest(async (req, res) => {
-  // validate request
-  const isRequestValid = await validateRequest(req);
-  if (isRequestValid?.status) {
-    return res.status(isRequestValid.status).json({ ...isRequestValid });
+  if (req.method !== 'POST') {
+    return res.status(405).json({
+      message: 'method not allowed',
+      details: `provided method: ${req.method}`,
+    });
   }
-  const { side, symbol } = isRequestValid;
+  logger.info('orders request body:', JSON.stringify(req.body));
+  const { body } = req;
+  const { symbol } = body;
+  const side = body?.side?.toLowerCase();
+  if (!symbol) {
+    logger.error('no symbol provided');
+    return res.status(400).json({ message: 'symbol is required' });
+  }
+  if (!side) {
+    logger.error('no side provided');
+    return res.status(400).json({ message: 'side is required' });
+  }
 
   const output = {
     buying_power: null,
@@ -25,11 +36,23 @@ exports.orders = onRequest(async (req, res) => {
 
   // check buying power
   if (side === constants.BUY) {
-    const buyingPower = await checkBuyingPower(req);
-    if (buyingPower?.status) {
-      return res.status(buyingPower.status).json({ ...buyingPower });
+    try {
+      logger.info('starting getBuyingPower');
+      const buyingPower = await getBuyingPower();
+      logger.info('available buying power:', buyingPower);
+      output.buying_power = buyingPower;
+      if (buyingPower <= 5) {
+        logger.warn('insufficient buying power');
+        return res
+          .status(400)
+          .json({ message: 'insufficient buying power', value: buyingPower });
+      }
+    } catch (error) {
+      logger.error('error in getBuyingPower:', error);
+      return res
+        .status(500)
+        .json({ message: error.message, block: 'getBuyingPower', error });
     }
-    Object.assign(output, buyingPower);
   }
 
   // cancel open buy orders
