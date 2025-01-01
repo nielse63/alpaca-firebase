@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-firebase/alpaca",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Alpaca object for alpaca-firebase",
   "main": "./index.js",
   "types": "./index.d.ts",
