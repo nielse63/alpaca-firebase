@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/nielse63/alpaca-firebase#readme",
   "dependencies": {
-    "@alpaca-firebase/alpaca": "file:../packages/alpaca",
+    "@alpaca-firebase/alpaca": "^1.0.10",
     "firebase-functions": "^6.2.0"
   }
 }

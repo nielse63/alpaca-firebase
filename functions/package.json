@@ -15,9 +15,9 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "dependencies": {
-    "@alpaca-firebase/account": "file:../packages/account",
-    "@alpaca-firebase/helpers": "file:../packages/helpers",
-    "@alpaca-firebase/orders": "file:../packages/orders",
+    "@alpaca-firebase/account": "^1.0.10",
+    "@alpaca-firebase/helpers": "^1.0.10",
+    "@alpaca-firebase/orders": "^1.0.10",
     "dotenv": "^16.4.7",
     "firebase-admin": "^12.7.0",
     "firebase-functions": "^6.2.0"
