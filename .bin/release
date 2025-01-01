@@ -50,12 +50,19 @@ npm run test --if-present
 npm version $increment --workspaces --no-git-tag-version --include-workspace-root
 npm publish --access public --workspaces --dry-run=$dry_run --include-workspace-root
 
+# give it some time...
+echo "Sleeping for 5 seconds..."
+sleep 5
+
 # get prev/new version
 prev_version=$(git describe --tags --abbrev=0)
 new_version=$(npm show . version)
 if [ "${new_version::1}" != "v" ]; then
   new_version="v${new_version}"
 fi
+
+echo "Previous Versions: $prev_version
+New Version: $new_version"
 
 # update ./functions
 cd "$functions"
